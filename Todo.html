@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODOアプリ</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<style>
+  .app {
+    width: 700px;
+    margin: auto;
+  }
+  .task-list {
+    display: flex;
+  }
+  .task-list p {
+    font-weight: bold;
+  }
+  p {
+    width: 150px;
+    text-align: center;
+  }
+  .task-content {
+    display: flex;
+  }
+</style>
+<body>
+  <div id="app" class="app">
+    <h1>TODOアプリ</h1>
+    タスク名：<input type="text" v-model="text">
+    推定時間（分）：<input type="text" v-model="minutes">
+    <button @click="addTask">追加</button>
+    <div class="task-list">
+      <p>タスク</p>
+      <p>推定時間（分）</p>
+    </div>
+    <div class="task-content">
+      <div>
+        <todo-component v-for="todoTask in task" :todo-task="todoTask.name"></todo-component>
+      </div>
+      <div>
+        <todo-component v-for="todoTask in task" :todo-task="todoTask.time"></todo-component>
+      </div>
+    </div>
+  </div>
+    </body>
+  <script>
+    Vue.component('todo-component',{
+      props: ['todoTask'],
+      template:"<p>{{todoTask}}</p>"
+    }),
+    new Vue({
+      el: '#app',
+      data:function(){
+        return{
+          text: "",
+          minutes: "",
+          task: [
+            { name: "予習" , time: "30分"},
+            { name: "学習", time: "30分" },
+            { name: "復習", time: "50分" },
+          ],
+        }
+      },
+      methods: {
+        addTask(){
+          this.task.push({name:this.text,time:this.minutes});
+        }
+      }
+    })
+  </script>
+</body>
+</html>
