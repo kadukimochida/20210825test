@@ -45,7 +45,6 @@
       </div>
     </div>
   </div>
-    </body>
   <script>
     Vue.component('todo-component',{
       props: ['todoTask'],
@@ -66,7 +65,8 @@
       },
       methods: {
         addTask(){
-          this.task.push({name:this.text,time:this.minutes});
+          this.task.push({name:this.text,time:this.minutes+"分"});
+          this.text = "";
         }
       }
     })
